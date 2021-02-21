@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Вход",
+    "estimate": 129600,
+    "jiraEpicLinks": [
+      "RIV-83"
+    ]
+  },
+  {
+    "name": "Геолокация",
+    "estimate": 144000,
+    "jiraEpicLinks": [
+      "RIV-86"
+    ]
+  },
+  {
+    "name": "Главный экран",
+    "estimate": 230400,
+    "jiraEpicLinks": [
+      "RIV-89"
+    ]
+  },
+  {
+    "name": "Поиск",
+    "estimate": 259200,
+    "jiraEpicLinks": [
+      "RIV-2534"
+    ]
+  },
+  {
+    "name": "Каталог",
+    "estimate": 388800,
+    "jiraEpicLinks": [
+      "RIV-85"
+    ]
+  },
+  {
+    "name": "Товар",
+    "estimate": 201600,
+    "jiraEpicLinks": [
+      "RIV-88"
+    ]
+  },
+  {
+    "name": "Избраное",
+    "estimate": 115200,
+    "jiraEpicLinks": [
+      "RIV-92"
+    ]
+  },
+  {
+    "name": "Корзина",
+    "estimate": 374400,
+    "jiraEpicLinks": [
+      "RIV-1369"
+    ]
+  },
+  {
+    "name": "Профиль пользователя",
+    "estimate": 417600,
+    "jiraEpicLinks": [
+      "RIV-93"
+    ]
+  },
+  {
+    "name": "Магазины",
+    "estimate": 244800,
+    "jiraEpicLinks": [
+      "RIV-91"
+    ]
+  },
+  {
+    "name": "Программа лояльности",
+    "estimate": 115200,
+    "jiraEpicLinks": [
+      "RIV-95"
+    ]
+  },
+  {
+    "name": "Прочее",
+    "estimate": 766080,
+    "jiraEpicLinks": [
+      "RIV-36"
+    ]
+  }
+]
