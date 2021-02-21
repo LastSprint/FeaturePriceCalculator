@@ -4,7 +4,11 @@ import (
 	"encoding/json"
 	"github.com/LastSprint/FeaturePriceCalculator/models"
 	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
+	"log"
 	"net/http"
+	"sync"
+	"time"
 )
 
 type PreSaleToJiraMapper interface {
@@ -20,15 +24,24 @@ type Api struct {
 
 func (a *Api) Start() {
 	r := httprouter.New()
-
 	a.registerMethods(r)
 
-	http.ListenAndServe(a.ListenAddress, r)
+	h := cors.Default().Handler(r)
+
+	http.ListenAndServe(a.ListenAddress, h)
 }
 
 func (a *Api) registerMethods(router *httprouter.Router) {
 	router.GET(a.BaseUrl+"/analytics/:project/:board", a.analyticsHandler)
 }
+
+type ResponseCache struct {
+	data models.LinkedPreSaleAndJira
+	time time.Time
+}
+
+var cache = ResponseCache{}
+var mutex = &sync.Mutex{}
 
 func (a *Api) analyticsHandler(w http.ResponseWriter, _ *http.Request, p httprouter.Params) {
 
@@ -47,6 +60,13 @@ func (a *Api) analyticsHandler(w http.ResponseWriter, _ *http.Request, p httprou
 		return
 	}
 
+	if cache.time.Add(time.Minute * 30).After(time.Now()) {
+		if err := json.NewEncoder(w).Encode(cache.data); err != nil {
+
+		}
+		return
+	}
+
 	res, err := a.PreSaleToJiraMapper.Run(project, board)
 
 	if err != nil {
@@ -54,6 +74,19 @@ func (a *Api) analyticsHandler(w http.ResponseWriter, _ *http.Request, p httprou
 		json.NewEncoder(w).Encode(map[string]string{"msg": err.Error()})
 		return
 	}
+
+	mutex.Lock()
+	cache.time = time.Now()
+	cache.data = *res
+	mutex.Unlock()
+
+	s := 0.0
+
+	for _, t := range res.EpicsWithoutPreSaleFeatures {
+		s += t.TimeSpendSum
+	}
+
+	log.Printf("[INFO] Unlinked time sum %v", int(s))
 
 	json.NewEncoder(w).Encode(res)
 	return
