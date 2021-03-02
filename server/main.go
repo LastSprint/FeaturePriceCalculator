@@ -12,6 +12,8 @@ const (
 	JiraPass    string = "JIRA_PASSWORD"
 	JiraLogin   string = "JIRA_LOGIN"
 	PathToWeb   string = "PATH_TO_WEB"
+	PathToCert  string = "RUSTY_BOARD_TLS_CERT_PATH"
+	PathToKey   string = "RUSTY_BOARD_TLS_KEY_PATH"
 )
 
 func main() {
@@ -27,6 +29,8 @@ func main() {
 		BaseUrl:       "/project_price_validator",
 		ListenAddress: ":6656",
 		PathToWeb:     envOrCurrent(PathToWeb, "web-front", false),
+		CertPath:      envOrCurrent(PathToCert, "", false),
+		KeyPath:       envOrCurrent(PathToKey, "", false),
 	}
 
 	controller.Start()

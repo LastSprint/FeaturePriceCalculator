@@ -22,6 +22,9 @@ type Api struct {
 	BaseUrl       string
 	ListenAddress string
 	PathToWeb     string
+
+	CertPath string
+	KeyPath  string
 }
 
 func (a *Api) Start() {
@@ -32,7 +35,11 @@ func (a *Api) Start() {
 
 	h := cors.Default().Handler(r)
 
-	http.ListenAndServe(a.ListenAddress, h)
+	if len(a.CertPath) == 0 && len(a.KeyPath) == 0 {
+		log.Fatal(http.ListenAndServe(a.ListenAddress, h))
+	} else {
+		log.Fatal(http.ListenAndServeTLS(a.ListenAddress, a.CertPath, a.KeyPath, h))
+	}
 }
 
 func (a *Api) registerMethods(router *httprouter.Router) {
