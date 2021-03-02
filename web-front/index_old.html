@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/vuesax/dist/vuesax.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuesax"></script>
+    <script src="js/network.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/cmp/UnlinkedCardCmp.js"></script>
+    <script src="js/cmp/LinkedTableCmp.js"></script>
+    <link href="all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
+<body style="background-color: #525252">
+
+<div id="app">
+
+    <div v-if="loading" class="rbcenter">
+        <div style="text-align: center">
+            <div class="trinity-rings-spinner" style="position: relative; left: 20%">
+                <div class="circle"></div>
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            <p style="font-family: 'Fira Code', monospace; color: #f5f3f1;margin-top: 16px;">Loading...</p>
+            <p style="font-family: 'Fira Code', monospace; color: #f5f3f1">It's not as easy as you think 🥲...</p>
+        </div>
+    </div>
+
+    <div v-else>
+        <fpc-main v-bind:reply="loaded"></fpc-main>
+    </div>
+</div>
+
+<script>
+    Vue.component(TableCmpName, TableCmp)
+    Vue.component(UnlinkedJiraEpicLineCmpName, UnlinkedJiraEpicLineCmp)
+    Vue.component(UnlinkedCardCmpName, UnlinkedCardCmp)
+    Vue.component(MainCmpName, MainCmp)
+    init({{project}}, {{board}})
+
+</script>
+</body>
+</html>

@@ -9,41 +9,37 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/vuesax"></script>
     <script src="js/network.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/cmp/UnlinkedCardCmp.js"></script>
-    <script src="js/cmp/LinkedTableCmp.js"></script>
     <link href="all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
 </head>
 <body style="background-color: #525252">
 
-<div id="app">
-
-    <div v-if="loading" class="rbcenter">
-        <div style="text-align: center">
-            <div class="trinity-rings-spinner" style="position: relative; left: 20%">
-                <div class="circle"></div>
-                <div class="circle"></div>
-                <div class="circle"></div>
-            </div>
-            <p style="font-family: 'Fira Code', monospace; color: #f5f3f1;margin-top: 16px;">Loading...</p>
-            <p style="font-family: 'Fira Code', monospace; color: #f5f3f1">It's not as easy as you think 🥲...</p>
+    <div id="app" class="rbcenter">
+        <div class="centerx default-input" style="margin-bottom: 22px">
+            <vs-input class="inputx" placeholder="Jira Project Key" v-model="jiraProjectKey"/>
+        </div>
+        <div class="centerx default-input">
+            <vs-input class="inputx" placeholder="Board Name" v-model="jiraBoardName"/>
+        </div>
+        <div id="app" class="centerx" style="margin-top: 22px">
+            <vs-button color="primary" type="filled" style="width: 100%" v-on:click="runRequest">Go</vs-button>
         </div>
     </div>
 
-    <div v-else>
-        <fpc-main v-bind:reply="loaded"></fpc-main>
-    </div>
-</div>
-
 <script>
-    Vue.component(TableCmpName, TableCmp)
-    Vue.component(UnlinkedJiraEpicLineCmpName, UnlinkedJiraEpicLineCmp)
-    Vue.component(UnlinkedCardCmpName, UnlinkedCardCmp)
-    Vue.component(MainCmpName, MainCmp)
-    init({{project}}, {{board}})
-
+    var vue = new Vue({
+        el: '#app',
+        methods: {
+          runRequest: function (ev) {
+              window.location.href = "http://localhost:6656/web/analytcs?project="+this.jiraProjectKey + "&board=" + this.jiraBoardName
+          }
+        },
+        data: {
+            jiraProjectKey: "",
+            jiraBoardName: ""
+        }
+    })
 </script>
 </body>
 </html>

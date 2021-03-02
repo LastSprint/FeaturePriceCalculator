@@ -1,5 +1,5 @@
 
-const SERVER_URL = "http://127.0.0.1:6656"
+const SERVER_URL = "http://lastsprint.dev:6656"
 
 function loadAllProjects(project, board, callback) {
 
