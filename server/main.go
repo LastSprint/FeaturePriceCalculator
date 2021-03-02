@@ -27,8 +27,8 @@ func main() {
 		PreSaleToJiraMapper: &busines.JiraEpicsAnalytics{
 			JiraDataProvider: &busines.JiraService{Loader: services.NewJiraIssueLoader(jiraUrl, jiraLogin, jiraPass)},
 		},
-		BaseUrl:       envOrCurrent(ListenAddress, "", false),
-		ListenAddress: ":6656",
+		BaseUrl:       "/project_price_validator",
+		ListenAddress: envOrCurrent(ListenAddress, "", false),
 		PathToWeb:     envOrCurrent(PathToWeb, "web-front", false),
 		CertPath:      envOrCurrent(PathToCert, "", false),
 		KeyPath:       envOrCurrent(PathToKey, "", false),
