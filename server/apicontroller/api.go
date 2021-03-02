@@ -79,12 +79,12 @@ func (a *Api) analyticsHandler(w http.ResponseWriter, _ *http.Request, p httprou
 		return
 	}
 
-	if cache.time.Add(time.Minute * 30).After(time.Now()) {
-		if err := json.NewEncoder(w).Encode(cache.data); err != nil {
-
-		}
-		return
-	}
+	//if cache.time.Add(time.Minute * 30).After(time.Now()) {
+	//	if err := json.NewEncoder(w).Encode(cache.data); err != nil {
+	//
+	//	}
+	//	return
+	//}
 
 	res, err := a.PreSaleToJiraMapper.Run(project, board)
 
@@ -94,10 +94,10 @@ func (a *Api) analyticsHandler(w http.ResponseWriter, _ *http.Request, p httprou
 		return
 	}
 
-	mutex.Lock()
-	cache.time = time.Now()
-	cache.data = *res
-	mutex.Unlock()
+	//mutex.Lock()
+	//cache.time = time.Now()
+	//cache.data = *res
+	//mutex.Unlock()
 
 	json.NewEncoder(w).Encode(res)
 	return
