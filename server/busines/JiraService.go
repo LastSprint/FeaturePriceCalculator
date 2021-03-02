@@ -13,11 +13,11 @@ type JiraService struct {
 	Loader *services.JiraIssueLoader
 }
 
-func (j *JiraService) GetAllEpics() ([]models2.IssueEntity, error) {
+func (j *JiraService) GetAllEpics(project, board string) ([]models2.IssueEntity, error) {
 	res, err := j.Loader.LoadIssues(services.SearchRequest{
 		IncludedTypes: []string{models2.IssueTypeEpic},
-		ProjectID:     "RIV",
-		Board:         "iOS",
+		ProjectID:     project,
+		Board:         board,
 	})
 
 	if err != nil {

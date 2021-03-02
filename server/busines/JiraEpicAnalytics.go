@@ -9,7 +9,7 @@ import (
 
 // JiraEpicsProvider can load jira epics
 type JiraDataProvider interface {
-	GetAllEpics() ([]models2.IssueEntity, error)
+	GetAllEpics(project, board string) ([]models2.IssueEntity, error)
 	// GetEpicsIssues load issues for one epic
 	GetEpicsIssues(epicJiraKey string) ([]models.Issue, error)
 }
@@ -19,7 +19,7 @@ type JiraEpicsAnalytics struct {
 }
 
 func (a *JiraEpicsAnalytics) Run(project, board string) (*models.EpicsAnalytics, error) {
-	epics, err := a.JiraDataProvider.GetAllEpics()
+	epics, err := a.JiraDataProvider.GetAllEpics(project, board)
 
 	if err != nil {
 		return nil, errors.WithMessage(err, "can't load link table")
