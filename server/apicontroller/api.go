@@ -2,6 +2,7 @@ package apicontroller
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/LastSprint/FeaturePriceCalculator/models"
 	"github.com/julienschmidt/httprouter"
 	"github.com/rs/cors"
@@ -34,6 +35,12 @@ func (a *Api) Start() {
 	r.ServeFiles("/web/wf/*filepath", http.Dir(a.PathToWeb))
 
 	h := cors.Default().Handler(r)
+
+	fmt.Println("BaseURL", a.BaseUrl)
+	fmt.Println("ListenAddress", a.ListenAddress)
+	fmt.Println("PathToWeb", a.PathToWeb)
+	fmt.Println("CertPath", a.CertPath)
+	fmt.Println("KeyPath", a.KeyPath)
 
 	if len(a.CertPath) == 0 && len(a.KeyPath) == 0 {
 		log.Fatal(http.ListenAndServe(a.ListenAddress, h))
