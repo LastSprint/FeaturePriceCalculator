@@ -8,12 +8,13 @@ import (
 )
 
 const (
-	JiraBaseUrl string = "JIRA_BASE_URL"
-	JiraPass    string = "JIRA_PASSWORD"
-	JiraLogin   string = "JIRA_LOGIN"
-	PathToWeb   string = "PATH_TO_WEB"
-	PathToCert  string = "RUSTY_BOARD_TLS_CERT_PATH"
-	PathToKey   string = "RUSTY_BOARD_TLS_KEY_PATH"
+	JiraBaseUrl   string = "JIRA_BASE_URL"
+	JiraPass      string = "JIRA_PASSWORD"
+	JiraLogin     string = "JIRA_LOGIN"
+	PathToWeb     string = "PATH_TO_WEB"
+	PathToCert    string = "FPC_TLS_CERT_PATH"
+	PathToKey     string = "FPC_TLS_KEY_PATH"
+	ListenAddress string = "FPC_LISTEN_ADDRESS"
 )
 
 func main() {
@@ -26,7 +27,7 @@ func main() {
 		PreSaleToJiraMapper: &busines.JiraEpicsAnalytics{
 			JiraDataProvider: &busines.JiraService{Loader: services.NewJiraIssueLoader(jiraUrl, jiraLogin, jiraPass)},
 		},
-		BaseUrl:       "/project_price_validator",
+		BaseUrl:       envOrCurrent(ListenAddress, "", false),
 		ListenAddress: ":6656",
 		PathToWeb:     envOrCurrent(PathToWeb, "web-front", false),
 		CertPath:      envOrCurrent(PathToCert, "", false),
