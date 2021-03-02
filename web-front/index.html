@@ -11,6 +11,7 @@
     <script src="js/network.js"></script>
     <script src="js/index.js"></script>
     <script src="js/cmp/UnlinkedCardCmp.js"></script>
+    <script src="js/cmp/LinkedTableCmp.js"></script>
     <link href="all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
@@ -32,17 +33,16 @@
     </div>
 
     <div v-else>
-        <fpc-unlinked-card
-                style="padding-top: 22px"
-                v-bind:epics="loaded.EpicsWithoutPreSaleFeatures"
-        ></fpc-unlinked-card>
+        <fpc-main v-bind:reply="loaded"></fpc-main>
     </div>
 </div>
 
 <script>
+    Vue.component(TableCmpName, TableCmp)
     Vue.component(UnlinkedJiraEpicLineCmpName, UnlinkedJiraEpicLineCmp)
     Vue.component(UnlinkedCardCmpName, UnlinkedCardCmp)
-    init()
+    Vue.component(MainCmpName, MainCmp)
+    init({{project}}, {{board}})
 
 </script>
 </body>

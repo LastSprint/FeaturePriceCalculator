@@ -1,9 +1,9 @@
 
 const SERVER_URL = "http://127.0.0.1:6656"
 
-function loadAllProjects(callback) {
+function loadAllProjects(project, board, callback) {
 
-    const url= SERVER_URL + "/project_price_validator/analytics/RIV/iOS";
+    const url= SERVER_URL + `/project_price_validator/analytics/${project}/${board}`;
 
     console.log(url)
 

@@ -9,8 +9,9 @@ import (
 
 const (
 	JiraBaseUrl string = "JIRA_BASE_URL"
-	JiraPass string = "JIRA_PASSWORD"
-	JiraLogin string = "JIRA_LOGIN"
+	JiraPass    string = "JIRA_PASSWORD"
+	JiraLogin   string = "JIRA_LOGIN"
+	PathToWeb   string = "PATH_TO_WEB"
 )
 
 func main() {
@@ -20,12 +21,12 @@ func main() {
 	jiraLogin := envOrCurrent(JiraLogin, "", true)
 
 	controller := &apicontroller.Api{
-		PreSaleToJiraMapper: &busines.PreSaleToJiraLinker{
-			LinkTableProvider: &busines.LinkTableFsLoader{PathToFile: "server/db.json"},
-			JiraEpicsProvider: &busines.JiraService{Loader: services.NewJiraIssueLoader(jiraUrl, jiraLogin, jiraPass)},
+		PreSaleToJiraMapper: &busines.JiraEpicsAnalytics{
+			JiraDataProvider: &busines.JiraService{Loader: services.NewJiraIssueLoader(jiraUrl, jiraLogin, jiraPass)},
 		},
-		BaseUrl:             "/project_price_validator",
-		ListenAddress:       ":6656",
+		BaseUrl:       "/project_price_validator",
+		ListenAddress: ":6656",
+		PathToWeb:     envOrCurrent(PathToWeb, "web-front", false),
 	}
 
 	controller.Start()

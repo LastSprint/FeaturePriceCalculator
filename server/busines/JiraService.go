@@ -13,10 +13,24 @@ type JiraService struct {
 	Loader *services.JiraIssueLoader
 }
 
+func (j *JiraService) GetAllEpics() ([]models2.IssueEntity, error) {
+	res, err := j.Loader.LoadIssues(services.SearchRequest{
+		IncludedTypes: []string{models2.IssueTypeEpic},
+		ProjectID:     "RIV",
+		Board:         "iOS",
+	})
+
+	if err != nil {
+		return nil, errors.WithMessagef(err, "while loading epic epics")
+	}
+
+	return res.Issues, nil
+}
+
 func (j *JiraService) GetEpicsIssues(epicJiraKey string) ([]models.Issue, error) {
 	res, err := j.Loader.LoadIssues(services.SearchRequest{
-		IncludedTypes:           []string{models2.IssueTypeBug, models2.IssueTypeTask, models2.IssueTypeServiceTask},
-		EpicLink:                epicJiraKey,
+		IncludedTypes: []string{models2.IssueTypeBug, models2.IssueTypeTask, models2.IssueTypeServiceTask},
+		EpicLink:      epicJiraKey,
 	})
 
 	if err != nil {

@@ -1,4 +1,6 @@
-function init() {
+
+
+function init(project, board) {
 
     var vue = new Vue({
         el: '#app',
@@ -7,12 +9,12 @@ function init() {
         }
     })
 
-    loadAllProjects(function (result) {
+    loadAllProjects(project, board, function (result) {
         vue.loading = false
         vue.loaded = result
         setTimeout(function () {
             // runVue(result)
-            console.log(result.EpicsWithoutPreSaleFeatures)
+            console.log(result)
         }, 30)
     })
 }

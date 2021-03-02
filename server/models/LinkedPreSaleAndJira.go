@@ -8,3 +8,8 @@ type LinkedPreSaleAndJira struct {
 	// EpicsWithoutPreSaleFeatures array of epics which don't have pre sale features to link
 	EpicsWithoutPreSaleFeatures []Epic
 }
+
+type EpicsAnalytics struct {
+	LinkedFeatures              []EpicAnalyze
+	EpicsWithoutPreSaleFeatures []EpicAnalyze
+}

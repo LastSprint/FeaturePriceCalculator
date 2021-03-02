@@ -18,7 +18,7 @@ var UnlinkedJiraEpicLineCmp = {
     <vs-card style="background-color: #202020" actionable class="cardx">
         <h3 style="display: flex;justify-content: left;align-items: center;padding-left: 8px;font-family: 'Fira Code', monospace;color: #f5f3f1">
             <a :href="'https://jira.surfstudio.ru/browse/'+epic.JiraKey">{{epic.Name}}</a> 
-            <p style="padding-left: 8px"> {{timeAsHour(epic.TimeSpendSum)}} </p>
+            <p style="padding-left: 8px"> {{timeAsHour(epic.SpentSum)}} </p>
         </h3>
     </vs-card>
     `
@@ -30,7 +30,7 @@ var UnlinkedCardCmp = {
     props: ['epics'],
     methods: {
         timeAsHour: function (seconds) {
-            console.log(seconds)
+            console.log("77", seconds)
             if (seconds < 60.0) {
                 return `${seconds}s`
             } else if (seconds < (60 * 60)) {
@@ -48,7 +48,7 @@ var UnlinkedCardCmp = {
                     <vs-collapse-item>
                         <div slot="header">
                             <h3 style="display: flex;justify-content: left;align-items: center;padding-left: 8px;font-family: 'Fira Code', monospace;color: #f5f3f1">
-                                Часов не залинковано: {{ timeAsHour(epics.reduce((a,b) => a + b.TimeSpendSum, 0)) }}
+                                Часов не залинковано: {{ timeAsHour(epics.reduce((a,b) => a + b.SpentSum, 0)) }}
                             </h3>
                         </div>
                         <fpc-unlinked-jira-epic-line
@@ -61,5 +61,28 @@ var UnlinkedCardCmp = {
             </vs-card>
         </vs-col>
     </vs-row>
+    `
+}
+
+const MainCmpName="fpc-main"
+
+var MainCmp = {
+    props: ['reply'],
+    template: `
+    <div>
+        <fpc-unlinked-card 
+            style="padding-top: 22px"
+            v-bind:epics="reply.EpicsWithoutPreSaleFeatures"
+        ></fpc-unlinked-card>
+        <vs-row vs-justify="center" style="padding-left: 22px">
+            <vs-col type="flex" vs-align="left" style="width: 90%">
+                <fpc-table
+                    v-bind:features="reply.LinkedFeatures"
+                    v-bind:allUnUsedTime="reply.EpicsWithoutPreSaleFeatures.reduce((a,b) => a + b.SpentSum, 0)"
+                    :timeArr="new Array(reply.LinkedFeatures.length)"
+                ></fpc-table>
+            </vs-col>
+        </vs-row>
+    </div>
     `
 }
