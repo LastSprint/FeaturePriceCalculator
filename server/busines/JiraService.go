@@ -29,7 +29,13 @@ func (j *JiraService) GetAllEpics(project, board string) ([]models2.IssueEntity,
 
 func (j *JiraService) GetEpicsIssues(epicJiraKey string) ([]models.Issue, error) {
 	res, err := j.Loader.LoadIssues(services.SearchRequest{
-		IncludedTypes: []string{models2.IssueTypeBug, models2.IssueTypeTask, models2.IssueTypeServiceTask},
+		IncludedTypes: []string{
+			models2.IssueTypeBug,
+			models2.IssueTypeTask,
+			models2.IssueTypeServiceTask,
+			models2.IssueTypeTestExecuted,
+			"10006", // Design
+		},
 		EpicLink:      epicJiraKey,
 	})
 
