@@ -1,0 +1,10 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - JIRA_BASE_URL
+      - JIRA_PASSWORD
+      - JIRA_LOGIN
+      - FPC_LISTEN_ADDRESS=:3000
